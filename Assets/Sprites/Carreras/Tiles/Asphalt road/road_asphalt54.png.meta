@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      road_asphalt54_0: 6729720412490789987
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

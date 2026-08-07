@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tankDark_barrel2_outline_0: 6821892100345342884
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

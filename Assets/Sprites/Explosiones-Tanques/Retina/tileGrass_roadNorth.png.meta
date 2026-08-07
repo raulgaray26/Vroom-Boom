@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileGrass_roadNorth_0: -2211346842988837272
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileGrass_roadTransitionN_dirt_0: 3413392879127892652
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

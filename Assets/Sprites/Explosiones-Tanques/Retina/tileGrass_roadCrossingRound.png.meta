@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileGrass_roadCrossingRound_0: 2011376693421434660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tankBody_sand_outline_0: 7205970005421965109
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

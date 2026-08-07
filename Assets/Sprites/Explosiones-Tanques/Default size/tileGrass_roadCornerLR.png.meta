@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileGrass_roadCornerLR_0: 7901549124658753250
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

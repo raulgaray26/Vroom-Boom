@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bulletSand3_outline_0: -4104512446472450935
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
