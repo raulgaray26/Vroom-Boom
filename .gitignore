@@ -10,4 +10,4 @@ UserSettings/
 *.csproj
 *.sln
 *.suo
-*.user
+*.user".vscode/" 
