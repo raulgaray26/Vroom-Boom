@@ -5519,7 +5519,7 @@ MonoBehaviour:
   tireTrailRight: {fileID: 884209991}
   turnThresholdForSkid: 0.6
   enableVibration: 1
-  vibrationAmplitude: 0.015
+  vibrationAmplitude: 0.018
   vibrationSpeed: 22
 --- !u!1 &884209990
 GameObject:
