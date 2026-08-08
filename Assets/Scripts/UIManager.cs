@@ -72,11 +72,12 @@ public class UIManager : MonoBehaviour
     }
 
     private void ActualizarPantalla(GameManager.GameState estado)
-    {
-        panelInicio.SetActive(estado == GameManager.GameState.Inicio);
-        panelHUD.SetActive(estado == GameManager.GameState.Jugando);
-        panelGameOver.SetActive(estado == GameManager.GameState.GameOver);
-    }
+{
+    Debug.Log("UIManager: cambiando a estado " + estado);
+    panelInicio.SetActive(estado == GameManager.GameState.Inicio);
+    panelHUD.SetActive(estado == GameManager.GameState.Jugando);
+    panelGameOver.SetActive(estado == GameManager.GameState.GameOver);
+}
 
     private void MostrarGameOver(int scoreFinal, int highScore, bool esNuevoRecord)
     {
