@@ -14,15 +14,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject[] collectiblePrefabs;
     public GameObject[] obstaclePrefabs;
 
-    [Header("Zona de aparición")]
-    [Tooltip("Coordenada Y donde aparecen los objetos (justo arriba del borde visible de cámara).")]
-    public float spawnY = 6f;
-
-    [Tooltip("Límite izquierdo del ancho de carretera donde pueden aparecer objetos.")]
-    public float roadMinX = -3.5f;
-
-    [Tooltip("Límite derecho del ancho de carretera donde pueden aparecer objetos.")]
-    public float roadMaxX = 3.5f;
+    // La zona de aparición ahora se toma de RoadConfig (compartida con PlayerController,
+    // CollectibleController y ObstacleController) en vez de tener sus propios campos aquí.
 
     [Header("Frecuencia de spawn (dificultad)")]
     [Tooltip("Segundos entre cada spawn al inicio del juego.")]
@@ -93,7 +86,7 @@ public class SpawnManager : MonoBehaviour
         );
     }
 
-    /// <summary>Llamar para empezar a generar objetos (por ejemplo, al arrancar la partida).</summary>
+    /// <summary>Llamar para empezar a generar objetos (al arrancar la partida).</summary>
     public void IniciarSpawn()
     {
         spawnActivo = true;
@@ -104,7 +97,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnLoop());
     }
 
-    /// <summary>Llamar para detener la generación de objetos (por ejemplo, en Game Over).</summary>
+    /// <summary>Llamar para detener la generación de objetos (Game Over).</summary>
     public void DetenerSpawn()
     {
         spawnActivo = false;
@@ -125,11 +118,11 @@ public class SpawnManager : MonoBehaviour
         bool esCollectible = Random.value < probabilidadCollectible;
         GameObject[] fuente = esCollectible ? collectiblePrefabs : obstaclePrefabs;
 
-        if (fuente == null || fuente.Length == 0) return; // todavía no asignaste prefabs en el Inspector
+        if (fuente == null || fuente.Length == 0) return;
 
         GameObject prefab = fuente[Random.Range(0, fuente.Length)];
-        float x = Random.Range(roadMinX, roadMaxX);
-        Vector3 posicion = new Vector3(x, spawnY, 0f);
+        float x = Random.Range(RoadConfig.MinX, RoadConfig.MaxX);
+        Vector3 posicion = new Vector3(x, RoadConfig.SpawnY, 0f);
 
         Instantiate(prefab, posicion, Quaternion.identity);
     }

@@ -19,16 +19,14 @@ public class CollectibleController : MonoBehaviour
     [Tooltip("Cantidad de combustible que rellena (solo aplica si Type = Fuel).")]
     public float fuelAmount = 25f;
 
-    [Header("Límite inferior de pantalla")]
-    [Tooltip("Coordenada Y por debajo de la cual el objeto se autodestruye si nadie lo recolectó.")]
-    public float destroyY = -6f;
+    // El límite inferior de pantalla ahora se toma de RoadConfig.DestroyY.
 
     void Update()
     {
         float speed = SpawnManager.Instance != null ? SpawnManager.Instance.GetScrollSpeed() : 4f;
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < destroyY)
+        if (transform.position.y < RoadConfig.DestroyY)
         {
             Destroy(gameObject);
         }
@@ -48,6 +46,11 @@ public class CollectibleController : MonoBehaviour
                 GameManager.Instance.AddFuel(fuelAmount);
             }
         }
+
+        // (Opcional) aquí puedes instanciar una partícula o reproducir un sonido
+        // antes de destruir el objeto, por ejemplo:
+        // Instantiate(efectoRecoleccion, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
     }
 }

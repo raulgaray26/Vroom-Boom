@@ -16,8 +16,7 @@ public class ObstacleController : MonoBehaviour
     [Tooltip("Combustible que resta al chocar (solo aplica si Type = Normal).")]
     public float fuelPenalty = 30f;
 
-    [Header("Límite inferior de pantalla")]
-    public float destroyY = -6f;
+    // El límite inferior de pantalla ahora se toma de RoadConfig.DestroyY.
 
     [Header("Efecto opcional")]
     [Tooltip("Prefab de explosión/partícula que se instancia al chocar (opcional, puede quedar vacío).")]
@@ -30,7 +29,7 @@ public class ObstacleController : MonoBehaviour
         float speed = SpawnManager.Instance != null ? SpawnManager.Instance.GetScrollSpeed() : 4f;
         transform.Translate(Vector3.down * speed * Time.deltaTime);
 
-        if (transform.position.y < destroyY)
+        if (transform.position.y < RoadConfig.DestroyY)
         {
             Destroy(gameObject);
         }

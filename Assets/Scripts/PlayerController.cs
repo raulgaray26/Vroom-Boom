@@ -3,8 +3,10 @@ using UnityEngine;
 /// <summary>
 /// Controla el movimiento del carro del jugador.
 /// - Movimiento horizontal (cambiar de carril) y vertical (acelerar/frenar) con WASD o flechas.
-/// - El carro no puede salir del área visible de la cámara (clamp).
-/// - Activa un booleano "IsMoving" en el Animator para animación idle/movimiento.
+/// - El carro no puede salir del área visible de la cámara EN VERTICAL, y no puede salir
+///   de la franja de carretera (RoadConfig.MinX/MaxX) EN HORIZONTAL.
+/// - Envía el input horizontal al Animator como el float "Steer" (-1..1) para que el
+///   Blend Tree incline el sprite hacia el lado al que te mueves.
 /// </summary>
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -16,23 +18,28 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Velocidad de movimiento vertical (acelerar/frenar).")]
     public float verticalSpeed = 6f;
 
-    [Header("Límites de pantalla (clamp)")]
-    [Tooltip("Margen en unidades de mundo para que el carro no quede pegado al borde exacto.")]
-    public float screenPadding = 0.4f;
-
-    [Tooltip("Límite vertical superior relativo (0 = centro de cámara, 1 = borde superior).")]
+    [Header("Límites verticales (clamp contra cámara)")]
+    [Tooltip("Límite vertical superior relativo (0 = borde inferior de cámara, 1 = borde superior).")]
     [Range(0f, 1f)]
     public float maxViewportY = 0.85f;
 
-    [Tooltip("Límite vertical inferior relativo (0 = centro de cámara, -1 no aplica; usa 0..1 desde abajo).")]
+    [Tooltip("Límite vertical inferior relativo.")]
     [Range(0f, 1f)]
     public float minViewportY = 0.1f;
+
+    [Tooltip("Margen extra en unidades de mundo para el clamp vertical.")]
+    public float verticalPadding = 0.4f;
+
+    [Header("Límites horizontales (clamp contra carretera)")]
+    [Tooltip("Margen para que el auto no quede pegado al borde exacto de la carretera.")]
+    public float horizontalPadding = 0.3f;
 
     private Rigidbody2D rb;
     private Animator animator;
     private Camera mainCamera;
 
     private float minX, maxX, minY, maxY;
+    private Vector2 moveInput;
 
     void Awake()
     {
@@ -48,8 +55,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Leemos el input en Update (más preciso para input),
-        // pero movemos el Rigidbody2D en FixedUpdate.
         float inputX = Input.GetAxisRaw("Horizontal"); // A/D o flechas izquierda/derecha
         float inputY = Input.GetAxisRaw("Vertical");   // W/S o flechas arriba/abajo
 
@@ -57,45 +62,33 @@ public class PlayerController : MonoBehaviour
 
         if (animator != null)
         {
-            bool isMoving = moveInput.sqrMagnitude > 0.01f;
-            animator.SetBool("IsMoving", isMoving);
+            // Steer maneja el Blend Tree que inclina el sprite hacia el lado del giro.
+            animator.SetFloat("Steer", inputX);
         }
     }
-
-    private Vector2 moveInput;
 
     void FixedUpdate()
     {
         Vector2 desiredPos = rb.position + moveInput.normalized * new Vector2(horizontalSpeed, verticalSpeed) * Time.fixedDeltaTime;
 
-        // Clamp para que el carro no salga del área visible de la cámara
-        desiredPos.x = Mathf.Clamp(desiredPos.x, minX, maxX);
+        // Horizontal: clamp contra el ancho REAL de la carretera (no contra toda la cámara),
+        // así el auto no se mete en las franjas de fuera de carretera.
+        desiredPos.x = Mathf.Clamp(desiredPos.x, RoadConfig.MinX + horizontalPadding, RoadConfig.MaxX - horizontalPadding);
+
+        // Vertical: clamp contra la cámara, para que se quede en la franja inferior de pantalla.
         desiredPos.y = Mathf.Clamp(desiredPos.y, minY, maxY);
 
         rb.MovePosition(desiredPos);
     }
 
-    /// <summary>
-    /// Recalcula los límites de mundo según el tamaño actual de la cámara.
-    /// Se llama en Start(); si cambias el tamaño de cámara en tiempo de ejecución, puedes
-    /// volver a llamarla manualmente.
-    /// </summary>
     public void RecalcularLimites()
     {
         if (mainCamera == null) mainCamera = Camera.main;
 
-        Vector3 bottomLeft = mainCamera.ViewportToWorldPoint(new Vector3(0f, 0f, mainCamera.nearClipPlane));
-        Vector3 topRight = mainCamera.ViewportToWorldPoint(new Vector3(1f, 1f, mainCamera.nearClipPlane));
-
-        minX = bottomLeft.x + screenPadding;
-        maxX = topRight.x - screenPadding;
-
-        // Usamos viewport (0..1) para dejar al jugador moverse solo en la franja inferior de la pantalla,
-        // que es el estilo típico de "carretera infinita" (el carro se queda abajo, el fondo se mueve).
         Vector3 minPointViewport = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, minViewportY, mainCamera.nearClipPlane));
         Vector3 maxPointViewport = mainCamera.ViewportToWorldPoint(new Vector3(0.5f, maxViewportY, mainCamera.nearClipPlane));
 
-        minY = minPointViewport.y + screenPadding * 0.25f;
-        maxY = maxPointViewport.y - screenPadding * 0.25f;
+        minY = minPointViewport.y + verticalPadding * 0.25f;
+        maxY = maxPointViewport.y - verticalPadding * 0.25f;
     }
 }
