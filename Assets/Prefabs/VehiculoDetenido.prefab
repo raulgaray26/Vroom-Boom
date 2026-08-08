@@ -149,4 +149,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   fuelPenalty: 40
-  explosionEffectPrefab: {fileID: 0}
+  explosionEffectPrefab: {fileID: 2473455621795446128, guid: 568669d9f817e4d41a0e90048d6fc5e5, type: 3}
+  "duracionDa\xF1oTemporal": 1

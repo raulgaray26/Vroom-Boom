@@ -35,6 +35,10 @@ public class ObstacleController : MonoBehaviour
         }
     }
 
+    [Header("Daño visual al jugador")]
+    [Tooltip("Segundos que dura el efecto de daño en el auto tras un golpe normal.")]
+    public float duracionDañoTemporal = 1f;
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (yaColisiono) return; // evita procesar el choque dos veces
@@ -45,6 +49,20 @@ public class ObstacleController : MonoBehaviour
         if (explosionEffectPrefab != null)
         {
             Instantiate(explosionEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        // Daño visual en el auto
+        PlayerDamageEffect damageEffect = other.GetComponent<PlayerDamageEffect>();
+        if (damageEffect != null)
+        {
+            if (type == ObstacleType.Explosivo)
+            {
+                damageEffect.TriggerDamage(0f); // permanente, el juego termina aquí
+            }
+            else
+            {
+                damageEffect.TriggerDamage(duracionDañoTemporal); // temporal
+            }
         }
 
         if (GameManager.Instance != null)

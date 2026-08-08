@@ -458,6 +458,7 @@ GameObject:
   - component: {fileID: 847703835}
   - component: {fileID: 847703834}
   - component: {fileID: 847703833}
+  - component: {fileID: 847703839}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -648,6 +649,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &847703839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 847703832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e9038e5c6619749810d7d47572d3a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagedSprite: {fileID: 7243013192230234170, guid: 379837dcaac7e244d9aeeeff921a1e5c, type: 3}
+  damageTintColor: {r: 1, g: 0.35, b: 0.35, a: 1}
 --- !u!1 &969492549
 GameObject:
   m_ObjectHideFlags: 0
