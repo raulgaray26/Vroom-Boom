@@ -10045,6 +10045,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1326431792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326431794}
+  - component: {fileID: 1326431793}
+  m_Layer: 0
+  m_Name: ScenerySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1326431793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326431792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27493f561f7726e4a916be386adbe8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneryPrefabs:
+  - {fileID: 684908306244250888, guid: ce8f6b76c0edc804dad25a261fae4890, type: 3}
+  - {fileID: 3673619797181355620, guid: 35b01144768e92f41a7aeb69c0f12e20, type: 3}
+  - {fileID: 7632425472758066847, guid: f0389a04e00154443aaea292069f0729, type: 3}
+  leftMinX: -8.2
+  leftMaxX: -6.2
+  rightMinX: 6.2
+  rightMaxX: 8.2
+  spawnInterval: 1
+--- !u!4 &1326431794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326431792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.9062135, y: -1.5219175, z: 0.049875434}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1362661420
 GameObject:
   m_ObjectHideFlags: 0
@@ -11882,7 +11935,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 16abb27cebe5a0d4b91e1d3ef4f60bb8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14861,3 +14914,4 @@ SceneRoots:
   - {fileID: 1059373848}
   - {fileID: 489500416}
   - {fileID: 1457486453}
+  - {fileID: 1326431794}
