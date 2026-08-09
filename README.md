@@ -8,6 +8,7 @@ Materia: Lenguajes de Programacion | Periodo: 2026-1 | Estado: Completado
 ## Capturas / Demo
 > Video demo
 
+https://github.com/user-attachments/assets/86598fe9-b643-4221-8579-bb7badf00fcf
 
 ## Funcionalidad
 - [x] Movimiento y control: desplazamiento del vehículo con WASD (cambio de carril y aceleración/frenado), con clamp para mantenerlo dentro del área visible de la cámara. [Commit](https://github.com/raulgaray26/Vroom-Boom/commit/9264036bdc29469202e015a9f8876f6fb69a8663)
