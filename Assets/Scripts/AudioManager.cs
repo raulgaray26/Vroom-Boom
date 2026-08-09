@@ -17,6 +17,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip sfxVictoria;
     [Range(0f, 1f)] public float volumenSFX = 0.8f;
 
+    [Header("Motor")]
+    public AudioClip sfxMotor;
+    [Range(0f, 1f)] public float volumenMotor = 0.4f;
+    private AudioSource fuenteMotor;
+
     private AudioSource fuenteMusica;
     private AudioSource fuenteSFX;
 
@@ -37,6 +42,11 @@ public class AudioManager : MonoBehaviour
         fuenteSFX = gameObject.AddComponent<AudioSource>();
         fuenteSFX.playOnAwake = false;
         fuenteSFX.volume = volumenSFX;
+
+        fuenteMotor = gameObject.AddComponent<AudioSource>();
+        fuenteMotor.loop = true;
+        fuenteMotor.playOnAwake = false;
+        fuenteMotor.volume = volumenMotor;
     }
 
     void OnEnable()
@@ -67,6 +77,10 @@ public class AudioManager : MonoBehaviour
             fuenteMusica.clip = musicaJuego;
             fuenteMusica.Play();
         }
+        if (sfxMotor != null)
+        {
+            fuenteMotor.clip = sfxMotor; fuenteMotor.Play();
+        }
     }
 
     private void ManejarRecolectar() => PlaySFX(sfxRecolectar);
@@ -77,12 +91,14 @@ public class AudioManager : MonoBehaviour
     {
         fuenteMusica.Stop();
         PlaySFX(sfxGameOver);
+        fuenteMotor.Stop();
     }
 
     private void ManejarVictoria(int score, int highScore, bool esNuevoRecord)
     {
         fuenteMusica.Stop();
         PlaySFX(sfxVictoria);
+        fuenteMotor.Stop();
     }
 
     public void PlaySFX(AudioClip clip)

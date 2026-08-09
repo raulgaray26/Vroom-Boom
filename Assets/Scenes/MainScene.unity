@@ -10030,6 +10030,8 @@ MonoBehaviour:
   sfxGameOver: {fileID: 8300000, guid: 08a573775f9bef24fa7c157c6a6d4592, type: 3}
   sfxVictoria: {fileID: 8300000, guid: 840df87878933f745bf5479186d5d53c, type: 3}
   volumenSFX: 0.8
+  sfxMotor: {fileID: 8300000, guid: ed5c3a2287ced884ea37f9ac71c939a6, type: 3}
+  volumenMotor: 1
 --- !u!4 &1279647755
 Transform:
   m_ObjectHideFlags: 0
