@@ -1,14 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Maneja música de fondo y SFX escuchando los eventos estáticos de GameManager.
-/// Ningún otro script (PlayerController, ObstacleController, etc.) necesita
-/// llamarlo directamente.
-///
-/// CÓMO USARLO:
-/// 1. Crea un GameObject vacío llamado "AudioManager" en la escena.
-/// 2. Agrega este script y arrastra tus AudioClips en el Inspector.
-/// </summary>
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
@@ -21,7 +12,9 @@ public class AudioManager : MonoBehaviour
     public AudioClip sfxRecolectar;
     public AudioClip sfxColision;
     public AudioClip sfxInicio;
+    public AudioClip sfxNivelCompletado;
     public AudioClip sfxGameOver;
+    public AudioClip sfxVictoria;
     [Range(0f, 1f)] public float volumenSFX = 0.8f;
 
     private AudioSource fuenteMusica;
@@ -51,7 +44,9 @@ public class AudioManager : MonoBehaviour
         GameManager.OnGameStart += ManejarInicio;
         GameManager.OnCollect += ManejarRecolectar;
         GameManager.OnObstacleHit += ManejarColision;
+        GameManager.OnLevelUp += ManejarNivelUp;
         GameManager.OnGameOverEvent += ManejarGameOver;
+        GameManager.OnVictoryEvent += ManejarVictoria;
     }
 
     void OnDisable()
@@ -59,7 +54,9 @@ public class AudioManager : MonoBehaviour
         GameManager.OnGameStart -= ManejarInicio;
         GameManager.OnCollect -= ManejarRecolectar;
         GameManager.OnObstacleHit -= ManejarColision;
+        GameManager.OnLevelUp -= ManejarNivelUp;
         GameManager.OnGameOverEvent -= ManejarGameOver;
+        GameManager.OnVictoryEvent -= ManejarVictoria;
     }
 
     private void ManejarInicio()
@@ -74,11 +71,18 @@ public class AudioManager : MonoBehaviour
 
     private void ManejarRecolectar() => PlaySFX(sfxRecolectar);
     private void ManejarColision() => PlaySFX(sfxColision);
+    private void ManejarNivelUp(int nuevoNivel) => PlaySFX(sfxNivelCompletado);
 
     private void ManejarGameOver(int score, int highScore, bool esNuevoRecord)
     {
         fuenteMusica.Stop();
         PlaySFX(sfxGameOver);
+    }
+
+    private void ManejarVictoria(int score, int highScore, bool esNuevoRecord)
+    {
+        fuenteMusica.Stop();
+        PlaySFX(sfxVictoria);
     }
 
     public void PlaySFX(AudioClip clip)
